@@ -28,7 +28,7 @@ browser.webRequest.onBeforeSendHeaders.addListener(async details => {
 	}
 	else if (topOfCallStack in chains.js) {
 		insertChainRequest(details, topOfCallStack);
-		let prediction = predict_proba(transformFeatures(details.requestId));
+		let prediction = predict_proba(transformFeatures(details.requestId, topOfCallStack));
 		chains.js[topOfCallStack].predictions.push(prediction);
 		if (prediction >= 0.5) {
 			console.log("Khaleesi blocked " + details.url);
