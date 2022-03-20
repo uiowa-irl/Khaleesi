@@ -30,7 +30,7 @@ We use 10-fold cross validation to test the datasets. The encoded features with 
 We analyze use cases of request chains for advertising and tracking. [Cookie syncing](https://github.com/uiowa-irl/Khaleesi/blob/main/code/cookie_syncing_heuristic.ipynb) and [bounce tracking](https://github.com/uiowa-irl/Khaleesi/blob/main/code/bounce_tracking_investigation.ipynb) scripts can be used to identify cookie syncing and bounce tracking instances.
 
 
-## Browser Extension [To be added soon...]
+## Browser Extension
 Khaleesi is implemented as a Firefox Add-on.
 
 #### Usage
