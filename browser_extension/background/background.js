@@ -48,7 +48,7 @@ browser.webRequest.onBeforeSendHeaders.addListener(async details => {
 			chains.js[topOfCallStack].predictions.push(prediction);
 		}
 		
-		if (prediction >= 0.5) {
+		if (prediction >= 0.5 && localStorage.getItem("onlyBlockRedirects") == "false") {
 			console.log("Khaleesi blocked " + details.url);
 			return { cancel: true };
 		}
