@@ -49,8 +49,8 @@ browser.webRequest.onBeforeSendHeaders.addListener(async details => {
 		}
 		
 		if (prediction >= 0.5) {
-			// console.log("Khaleesi blocked " + details.url);
-			// return { cancel: true };
+			console.log("Khaleesi blocked " + details.url);
+			return { cancel: true };
 		}
 	}	
 }, {

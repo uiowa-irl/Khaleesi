@@ -45,7 +45,6 @@ class Imputer {
 var encoders = {};
 function buildEncoders() {
     encoders.requestMethod = new OneHotEncoder(["GET", "HEAD", "OPTIONS", "POST", "PUT", "SEARCH"]);
-	// encoders.requestMethod = new OneHotEncoder(["GET", "HEAD", "OPTIONS", "POST", "SEARCH"]);
     encoders.responseStatus = new OneHotEncoder(["0", "200", "201", "202", "203", "204", "205", "206", "207", "244", "301", "302", "303", "304", "307", "308", "400", "401", "403", "404", "405", "406", "410", "412", "414", "422", "429", "458", "500", "502", "503", "504", "551", "?"]);
     encoders.etagInResponseHeaders = new OneHotEncoder(["0", "1", "?"]);
     encoders.p3pInResponseHeaders = new OneHotEncoder(["0", "1", "?"]);
