@@ -1,4 +1,8 @@
 browser.webRequest.onBeforeSendHeaders.addListener(async details => {
+	if (details.type == "main_frame" || details.tabId == -1) {
+		return;
+	}
+
 	let contentScriptPromise = new Promise((resolve) => {
 		setTimeout(() => resolve(""), 1);
 		browser.tabs.sendMessage(details.tabId, { content: details.url }, function (response) {
@@ -37,6 +41,17 @@ browser.webRequest.onBeforeSendHeaders.addListener(async details => {
 	}
 	else {
 		initializeChains(details, topOfCallStack);
+		let features = transformFeatures(details.requestId, topOfCallStack);
+		let prediction = predict_proba(features);
+		chains.http[details.requestId].predictions.push(prediction);
+		if (topOfCallStack) {
+			chains.js[topOfCallStack].predictions.push(prediction);
+		}
+		
+		if (prediction >= 0.5) {
+			// console.log("Khaleesi blocked " + details.url);
+			// return { cancel: true };
+		}
 	}	
 }, {
 	urls: ["http://*/*", "https://*/*"]

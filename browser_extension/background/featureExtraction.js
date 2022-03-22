@@ -27,8 +27,15 @@ function matchRegexKeywordInUrl(url) {
 
 function getRequestFeatures(details, pslParsedUrl) {
 	let requestFeatures = {};
-	let [parsedUrl, parsedTopLevelUrl, pslParsedTopLevelUrl] = 
-		[new URL(details.url), new URL(details.documentUrl), parse(details.documentUrl)];
+
+	let parsedUrl = new URL(details.url);
+	let parsedTopLevelUrl, pslParsedTopLevelUrl;
+	if (details.documentUrl) {
+		[parsedTopLevelUrl, pslParsedTopLevelUrl] = [new URL(details.documentUrl), parse(details.documentUrl)];
+	}	
+	else {
+		[parsedTopLevelUrl, pslParsedTopLevelUrl] = [new URL(details.url), parse(details.url)];
+	}
 
 	requestFeatures.lengthOfUrl = details.url.length;
 
@@ -102,13 +109,23 @@ function getResponseSubtype(contentType) {
 
 function getResponseFeatures(details) {
 	let responseFeatures = {
-		"etagInResponseHeaders": false,
-		"p3pInResponseHeaders": false,
-		"responseSetsCookies": false,
+		"etagInResponseHeaders": "?",
+		"p3pInResponseHeaders": "?",
+		"responseSetsCookies": "?",
 		"responseType": "?",
-		"responseSubtype": "?"
+		"responseSubtype": "?",
+		"contentLength": "?",
+		"numResponseHeaders": "?",
+		"responseStatus": "?"
 	};
 
+	if (!details) {
+		return responseFeatures;
+	}
+
+	responseFeatures.etagInResponseHeaders = false;
+	responseFeatures.p3pInResponseHeaders = false;
+	responseFeatures.responseSetsCookies = false;
 	for (let i = 0; i < details.responseHeaders.length; i++) {
 		let responseHeaderName = details.responseHeaders[i].name.toLowerCase();
 		let responseHeaderValue = details.responseHeaders[i].value.toLowerCase();
@@ -140,7 +157,17 @@ function getResponseFeatures(details) {
 }
 
 function getSequentialFeatures(details, topOfCallStack = "") {
-	let sequentialFeatures = {};
+	let sequentialFeatures = {
+		"lengthOfChain": 1,
+		"redirectToNewDomain": "?",
+		"numUniqueDomains": 1,
+		"previousPrediction": "?",
+		"averagePreviousPredictions": "?",
+	};
+
+	if (!details) {
+		return sequentialFeatures;
+	}
 
 	let targetChain;
 	if (topOfCallStack == "")
