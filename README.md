@@ -67,4 +67,4 @@ If you use code/data in your research, please cite Khaleesi as follows:
 
 ## Contact
 
-*Please contact [Umar Iqbal](https://www.umariqbal.com) and [Charlie Wolfe](mailto:uiowa.charlie@gmail.com) if you run into any problems running the code or if you have any questions about Khaleesi.*
+*Please contact [Umar Iqbal](https://www.umariqbal.com) and [Charlie Wolfe](mailto:cw@charliewolfe.net) if you run into any problems running the code or if you have any questions about Khaleesi.*
